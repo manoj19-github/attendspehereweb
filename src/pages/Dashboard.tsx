@@ -228,7 +228,7 @@ const STAT_THEMES = [
     gradient: `linear-gradient(135deg, ${C.primary}, ${C.darkBlue})`,
     iconBg: 'rgba(255,255,255,0.2)',
     shadow: `0 8px 32px rgba(74,127,217,0.35)`,
-    accent: C.accent,
+    accent: C.orange,
   },
   {
     gradient: `linear-gradient(135deg, #27AE60, ${C.success})`,
@@ -427,7 +427,7 @@ export function Dashboard() {
   const totalEmployees = usersData?.data.pagination.total || 0;
   const presentToday   =
     Array.isArray(allUsersData?.data.data) &&
-    allUsersData?.data?.data.filter((u: any) => u.isPresent).length || 0;
+    allUsersData?.data?.data.filter((u: any) => u.is_present).length || 0;
   const absentToday    = totalEmployees - presentToday;
   const today          = new Date().getDay();
   const workingDays    = officeSettings?.WORKING_HOURS?.days || [];
@@ -566,12 +566,12 @@ export function Dashboard() {
                           display:'inline-flex', alignItems:'center', gap:5,
                           fontSize:11, fontWeight:700,
                           padding:'3px 9px', borderRadius:20,
-                          background: user.isPresent ? `${C.success}15` : `${C.danger}12`,
-                          color: user.isPresent ? C.success : C.danger,
-                          border: `1px solid ${user.isPresent ? C.success+'30' : C.danger+'25'}`,
+                          background: user.is_present ? `${C.success}15` : `${C.danger}12`,
+                          color: user.is_present ? C.success : C.danger,
+                          border: `1px solid ${user.is_present ? C.success+'30' : C.danger+'25'}`,
                         }}>
-                          <span style={{ width:5, height:5, borderRadius:'50%', background: user.isPresent ? C.success : C.danger, display:'inline-block' }} />
-                          {user.isPresent ? 'Present' : 'Absent'}
+                          <span style={{ width:5, height:5, borderRadius:'50%', background: user.is_present ? C.success : C.danger, display:'inline-block' }} />
+                          {user.is_present ? 'Present' : 'Absent'}
                         </span>
                       </div>
                       <button

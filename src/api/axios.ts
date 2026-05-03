@@ -2,10 +2,11 @@ import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import Cookies from 'js-cookie';
 import { useAuthStore } from '@/stores/auth.store';
 import { authApi } from './auth.api';
+import { backendUrl } from '@/enviroment';
 
 
 export const api = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: backendUrl,
   timeout: 15000,
 });
 

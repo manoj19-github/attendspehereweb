@@ -213,7 +213,9 @@ useEffect(() => {
 
         <Marker position={[OFFICE_LAT,OFFICE_LNG]} icon={officeIcon} />
 
-        {users.map(user => (
+        {users.map(user => {
+          console.log('user: ', user);
+          return(
           <Marker
             key={user.userId}
             position={[user.lat, user.lng]}
@@ -251,10 +253,10 @@ useEffect(() => {
                 </div>
                 <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr',gap:0 }}>
                   {[
-                    { label:'Distance',   value:`${user.distance.toFixed(0)} m`,  color:user.status==='in_office_area'?C.success:C.warning },
-                    { label:'Last seen',  value:`${formatDistanceToNow(new Date(user.lastSeen))} ago`, color:C.gray500 },
-                    { label:'Hours today',value:`${user.totalHours}h`,            color:C.primary },
-                    { label:'Status',     value:user.status==='in_office_area'?'Inside ✓':'Outside ✗', color:user.status==='in_office_area'?C.success:C.danger },
+                    { label:'Distance',   value:`${ user?.distance?.toFixed(0) ? user?.distance?.toFixed(0):"0"} m`,  color:user?.status==='in_office_area'?C.success:C.warning },
+                    { label:'Last seen',  value:`${ user?.lastSeen ? formatDistanceToNow(new Date(user.lastSeen)) :"0m" } ago`, color:C.gray500 },
+                    { label:'Hours today',value:`${user?.totalHours ? user?.totalHours:"0"}h`,            color:C.primary },
+                    { label:'Status',     value:user?.status==='in_office_area'?'Inside ✓':'Outside ✗', color:user?.status==='in_office_area'?C.success:C.danger },
                   ].map((d,i) => (
                     <div key={d.label} style={{
                       padding:'10px 14px',
@@ -269,7 +271,7 @@ useEffect(() => {
               </div>
             </Popup>
           </Marker>
-        ))}
+        )})}
       </MapContainer>
 
       {/* ═══ CUSTOM MAP CONTROLS ═══ */}
@@ -494,11 +496,11 @@ useEffect(() => {
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 3 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 3 }}>
                 <Clock size={9} color={C.gray400} />
-                <span style={{ fontSize: 9, color: C.gray400 }}>{formatDistanceToNow(new Date(user.lastSeen))} ago</span>
+                <span style={{ fontSize: 9, color: C.gray400 }}>{ user?.lastSeen ? formatDistanceToNow(new Date(user.lastSeen)) : "0m" } ago</span>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 3 }}>
                 <Ruler size={9} color={C.gray400} />
-                <span style={{ fontSize: 9, color: C.gray400 }}>{user.distance.toFixed(0)}m</span>
+                <span style={{ fontSize: 9, color: C.gray400 }}>{user?.distance?.toFixed(0)}m</span>
               </div>
             </div>
           </div>
